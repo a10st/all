@@ -19,13 +19,15 @@ browser_manager = BrowserManager()
 
 def check_proxy_status(browser):
     """检查代理连接状态"""
-    return True, "代理连接正常"
+    # return True, "The proxy connection is normal"
     try:
         browser.get("http://ip-api.com/json")
+        # f = browser.find_element(By.TAG_NAME, "body")
+        print(browser.find_element(By.TAG_NAME, "body").text)
         WebDriverWait(browser, 10).until(
             lambda driver: driver.execute_script("return document.readyState") == "complete"
         )
-        return True, "代理连接正常"
+        return True, "The proxy connection is normal"
     except Exception as e:
         error_msg = str(e)
         if "ERR_PROXY_CONNECTION_FAILED" in error_msg:
