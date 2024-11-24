@@ -11,63 +11,47 @@ on:
         
 
 env:
-
-    NODEPAY_TOKEN: ${{ secrets.NODEPAY_TOKEN }}
+    GRADIENT_USERNAME: ${{ secrets.GRADIENT_USERNAME }}
+    GRADIENT_PASS: ${{ secrets.GRADIENT_PASS }}
 
 # 1440
 
 jobs:  
-    job_nodepay2:
+    job_gradient:
         runs-on: ubuntu-latest
-        timeout-minutes: 21
+        timeout-minutes: 1440
         steps:
             - name: Checkout Code
               uses: actions/checkout@v4
-            - name: Nodepay-install
+            - name: Gradient-install
               run: |
-                cd nodepay
+                cd Gradient
                 python -m venv venv
                 source venv/bin/activate
                 pip install -r requirements.txt
-            - name: Nodepay-run
+            - name: Gradient-run
               run: |
-                cd nodepay
+                cd Gradient
                 source venv/bin/activate
-                timeout 5m python noproxy.py
-    job_nodepay1:
+                python main.py
+    job_gradient1:
         runs-on: ubuntu-latest
-        timeout-minutes: 21
+        timeout-minutes: 1440
         steps:
             - name: Checkout Code
               uses: actions/checkout@v4
-            - name: Nodepay-install
+            - name: Gradient-install
               run: |
-                cd nodepay
+                cd Gradient
                 python -m venv venv
                 source venv/bin/activate
                 pip install -r requirements.txt
-            - name: Nodepay-run
+            - name: Gradient-run
               run: |
-                cd nodepay
+                cd Gradient
                 source venv/bin/activate
-                timeout 5m python noproxy.py
-    job_nodepay:
-        runs-on: ubuntu-latest
-        timeout-minutes: 21
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v4
-            - name: Nodepay-install
-              run: |
-                cd nodepay
-                python -m venv venv
-                source venv/bin/activate
-                pip install -r requirements.txt
-            - name: Nodepay-run
-              run: |
-                cd nodepay
-                source venv/bin/activate
-                timeout 5m python noproxy.py
+                python main.py
+
 
 
     # job_grass:
